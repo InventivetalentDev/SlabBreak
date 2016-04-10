@@ -1,0 +1,4 @@
+name: SlabBreak
+main: org.inventivetalent.slabbreak.SlabBreak
+author: inventivetalent
+version: ${project.version}
