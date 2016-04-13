@@ -28,6 +28,7 @@ public class SlabBreak extends JavaPlugin implements Listener {
 	@EventHandler
 	public void on(BlockBreakEvent event) {
 		if (event.isCancelled()) { return; }
+		if (!event.getPlayer().hasPermission("slabbreak.use")) { return; }
 		if (isDoubleSlab(event.getBlock())) {
 			event.setCancelled(true);
 
