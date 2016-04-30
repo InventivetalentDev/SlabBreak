@@ -1,11 +1,13 @@
 package org.inventivetalent.slabbreak;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 import org.mcstats.MetricsLite;
@@ -47,11 +49,14 @@ public class SlabBreak extends JavaPlugin implements Listener {
 				double blockY = blockVector.getY() - ((int) blockVector.getY());
 				if (blockY > .5) {//Upper half
 					event.getBlock().setTypeIdAndData(event.getBlock().getTypeId() + 1, event.getBlock().getData(), true);
+					if (event.getPlayer().getGameMode() == GameMode.SURVIVAL) { event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData())); }
 				} else {//Lower half
 					event.getBlock().setTypeIdAndData(event.getBlock().getTypeId() + 1, (byte) (event.getBlock().getData() + 8), true);
+					if (event.getPlayer().getGameMode() == GameMode.SURVIVAL) { event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(event.getBlock().getType(), 1, (byte) (event.getBlock().getData() & 7))); }
 				}
 			} else {
 				event.getBlock().setTypeIdAndData(event.getBlock().getTypeId() + 1, event.getBlock().getData(), true);
+				if (event.getPlayer().getGameMode() == GameMode.SURVIVAL) { event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData())); }
 			}
 		}
 	}
